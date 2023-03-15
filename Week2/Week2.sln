@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "roman_to_cardinal", "roman_to_cardinal\roman_to_cardinal.vcxproj", "{6E7D536D-9834-4DA9-BCA7-81CB14A92A11}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cardinal_to_roman", "cardinal_to_roman\cardinal_to_roman.vcxproj", "{64F80D2D-3258-42D3-98C2-F5843CE79AD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{6E7D536D-9834-4DA9-BCA7-81CB14A92A11}.Release|x64.Build.0 = Release|x64
 		{6E7D536D-9834-4DA9-BCA7-81CB14A92A11}.Release|x86.ActiveCfg = Release|Win32
 		{6E7D536D-9834-4DA9-BCA7-81CB14A92A11}.Release|x86.Build.0 = Release|Win32
+		{64F80D2D-3258-42D3-98C2-F5843CE79AD1}.Debug|x64.ActiveCfg = Debug|x64
+		{64F80D2D-3258-42D3-98C2-F5843CE79AD1}.Debug|x64.Build.0 = Debug|x64
+		{64F80D2D-3258-42D3-98C2-F5843CE79AD1}.Debug|x86.ActiveCfg = Debug|Win32
+		{64F80D2D-3258-42D3-98C2-F5843CE79AD1}.Debug|x86.Build.0 = Debug|Win32
+		{64F80D2D-3258-42D3-98C2-F5843CE79AD1}.Release|x64.ActiveCfg = Release|x64
+		{64F80D2D-3258-42D3-98C2-F5843CE79AD1}.Release|x64.Build.0 = Release|x64
+		{64F80D2D-3258-42D3-98C2-F5843CE79AD1}.Release|x86.ActiveCfg = Release|Win32
+		{64F80D2D-3258-42D3-98C2-F5843CE79AD1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

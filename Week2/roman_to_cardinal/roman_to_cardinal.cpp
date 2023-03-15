@@ -6,60 +6,47 @@
 
 using namespace std;
 
-string intToRoman(int num);
+int RomanToint(string str);
+int getMatchedValue(char ch);
 
 int main()
 {
-    int num;
-
     string input;
 
     while (true)
     {
-        try
-        {
-            cout << "1~3999 사이의 값을 입력해 주세요 :";
-            cin >> input;
+        cout << "로마숫자를 입력해주세요(대문자로 입력해주세요) :";
+        cin >> input;
 
-            num = stoi(input);
+        int num = RomanToint(input);
 
-            if (num > 3999 || num <= 0)
-                throw string("범위를 넘어갑니다.");
-        }
-        catch (string error)
-        {
-            num = 0;
-            cout << error << endl;
-            continue;
-        }
-        catch (const invalid_argument& e) {
-            cout << "정수형이 아닙니다." << std::endl;
-            continue;
-        }
-
-
-        string roman = intToRoman(num);
-        cout << roman << endl;
+        if(num < 0)  cout << "잘못된 값이 입력되었습니다." << endl;
+        else cout << num << endl;
     }
 }
 
-string intToRoman(int num)
+int RomanToint(string str)
 {
-    string roman = "";
+    int num = 0;
 
-    int values[] = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
-    string symbols[] = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
-
-    for (int i = 0; i < 13; i++)
+    for (int i = 0; str[i]; i++)
     {
-        while (num >= values[i])
-        {
-            roman += symbols[i];
-            num -= values[i];
-        }
+        num += getMatchedValue(str[i]) * ((getMatchedValue(str[i]) < getMatchedValue(str[i + 1])) ? -1 : 1);
     }
 
-    return roman;
+    return num;
 }
 
-//1~3999 받으면 함수로 로마 숫자 변환하기
+int getMatchedValue(char ch)
+{
+    char symbols[] = { 'M', 'D', 'C', 'L', 'X', 'V', 'I' };
+    int values[] = { 1000, 500, 100, 50, 10, 5, 1 };
+
+    for (int i = 0; i < 7; i++)
+    {
+        if (symbols[i] == ch)
+            return values[i];
+    }
+
+    return -1;
+}
