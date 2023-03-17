@@ -4,6 +4,7 @@
 #include <string>
 #include <stdexcept>
 #include <conio.h>
+#include <vector>
 
 using namespace std;
 
@@ -12,17 +13,52 @@ string intToRoman(int num);
 int main()
 {
     int num;
-
-    string input;
+    bool isEsc = false;
+    vector<char> input;
 
     while (true)
     {
         try
         {
             cout << "1~3999 사이의 값을 입력해 주세요 :";
-            cin >> input;
+            while (true)
+            {
+                if (_kbhit())
+                {
+                    char ch = _getch();
 
-            num = stoi(input);
+                    if (ch == 27)
+                    {
+                        isEsc = true;
+                        break;
+                    }
+                    else if (ch == '\b')
+                    {
+                        if (input.size() != 0)
+                        {
+                            input.pop_back();
+                            cout << '\b' << " " << "\b";
+                        }
+                    }
+                    else if (ch == '\r')
+                    {
+                        cout << endl;
+                        break;
+                    }
+                    else
+                    {
+                        input.push_back(ch);
+                        cout << input.back();
+                    }
+                }
+            }
+
+            if (isEsc) break;
+
+            string str(input.begin(), input.end());
+            input.clear();
+
+            num = stoi(str);
 
             if (num > 3999 || num <= 0)
                 throw string("범위를 넘어갑니다.");
