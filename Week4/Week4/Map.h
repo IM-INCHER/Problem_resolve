@@ -1,36 +1,42 @@
 #pragma once
 
 #include <iostream>
-
-#define MAP_MAX_X 4
-#define MAP_MAX_Y 4
+#include <Windows.h>
+#include <queue>
+#include <vector>
 
 using namespace std;
 
-enum MapType
+enum MTYPE
 {
-	MAP_ROAD,
-	MAP_ROCK
+    START,
+    GOAL,
+    ROAD,
+    OBSTACLE,
+    ROUTE
 };
 
-struct Tile
-{
-	int index;
-	MapType type;
-	int distance;
-};
-
-class Map
-{
-private:
-	Tile map[MAP_MAX_X][MAP_MAX_Y];
-
+class Tile {
 public:
-	Map();
-	~Map();
+    int x, y;
+    int cost;
+    bool obstacle;
+    MTYPE type;
 
-	Tile GetTile(int x, int y) { return map[x][y]; }
-	Tile SearchTile(int index);
-	void MapDrow();
+    Tile(int x, int y, int cost, bool obstacle = false);
 };
 
+// 타일맵 정보를 저장하는 클래스
+class TileMap {
+public:
+    int width, height;
+    vector<Tile> tiles;
+
+    TileMap(int width, int height);
+        
+
+    void addTile(int x, int y, int cost, bool obstacle = false) {
+        tiles.emplace_back(x, y, cost, obstacle || cost == 0);
+    }
+    void PrintMap();
+};

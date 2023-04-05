@@ -2,41 +2,24 @@
 
 #include "Map.h"
 
-class Node
-{
+class Node {
 public:
-	Tile* _data;
-	int _size;
-	int _childNum;
+    int tileIdx;
+    int depth;
+    Node* parent;
 
-	Node** parents_;
-	Node** _child;
-
-	bool isVisit;
-
-public:
-	Node();
-	~Node();
-
-	void SizeUp();
+    Node(int tileIdx, int depth, Node* parent = nullptr) :
+        tileIdx(tileIdx), depth(depth), parent(parent) {}
 };
 
-
-class Tree
-{
-	Node* _rootNode;
-	Map* _map;
-
+// 탐색 정보를 저장하는 클래스
+class BFS {
 public:
-	Tree(Node* rootNode, Map* map);
-	Tree();
+    TileMap& tileMap;
 
-	Node* CreateNode(Tile* data);
-	Node* InsertNode(Node* node, Tile* data);
+    BFS(TileMap& tileMap) :
+        tileMap(tileMap) {}
 
-	void DistanceBFS(Tile* End);
-	void MoveCheck(Node* node);
-
+    // BFS 탐색 함수
+    Node* search(int startIdx, int goalIdx);
 };
-
-

@@ -1,92 +1,40 @@
 #include "Tree.h"
 
-Tree::Tree(Node* rootNode, Map* map)
+Node* BFS::search(int startIdx, int goalIdx)
 {
-	_rootNode = rootNode;
-	_map = map;
+    queue<Node*> frontier;
+    vector<bool> visited(tileMap.tiles.size(), false);
 
-}
+    Node* startNode = new Node(startIdx, 0);
+    frontier.push(startNode);
 
-Tree::Tree()
-{
-}
+    while (!frontier.empty()) {
+        Node* current = frontier.front();
+        frontier.pop();
 
-Node* Tree::CreateNode(Tile* data)
-{
-	Node* node = new Node();
-	node->_data = data;
-	node->isVisit = false;
+        visited[current->tileIdx] = true;
 
-	return node;
-}
+        if (current->tileIdx == goalIdx) {
+            return current;
+        }
 
-Node* Tree::InsertNode(Node* node, Tile* data)
-{
-	if (node == nullptr)
-		return CreateNode(data);
+        int cx = tileMap.tiles[current->tileIdx].x;
+        int cy = tileMap.tiles[current->tileIdx].y;
 
-	if (node->_childNum == node->_size) node->SizeUp();
+        for (int i = 0; i < tileMap.tiles.size(); i++) {
+            if (visited[i] || tileMap.tiles[i].obstacle) {
+                continue;
+            }
 
-	node->_child[node->_childNum] = InsertNode(node->_child[node->_childNum], data);
-	node->_child[node->_childNum]->parents_ = &node;
-	node->_childNum++;
+            int dx = abs(tileMap.tiles[i].x - cx);
+            int dy = abs(tileMap.tiles[i].y - cy);
 
-	return node;
-}
+            if (dx + dy == 1) {
+                Node* next = new Node(i, current->depth + 1, current);
+                frontier.push(next);
+            }
+        }
+    }
 
-void Tree::DistanceBFS(Tile* End)
-{
-	MoveCheck(_rootNode);
-	for (int i = 0; i < _rootNode->_childNum; i++)
-	{
-		MoveCheck(_rootNode->_child[i]);
-	}
-}
-
-void Tree::MoveCheck(Node* node)
-{
-	if (node->_data->index % MAP_MAX_X != MAP_MAX_X - 1)
-		InsertNode(node, &_map->SearchTile(node->_data->index + 1));
-
-	if (node->_data->index % MAP_MAX_X != 0)
-		InsertNode(node, &_map->SearchTile(node->_data->index - 1));
-
-	if (node->_data->index + MAP_MAX_X < MAP_MAX_X * MAP_MAX_Y)
-		InsertNode(node, &_map->SearchTile(node->_data->index + MAP_MAX_X));
-
-	if (node->_data->index - MAP_MAX_X > 0)
-		InsertNode(node, &_map->SearchTile(node->_data->index - MAP_MAX_X));
-}
-
-Node::Node()
-{
-	_childNum = 0;
-	_size = 10;
-	_child = new Node * [_size];
-
-	for (int i = 0; i < _size; i++)
-	{
-		_child[i] = nullptr;
-	}
-}
-
-Node::~Node()
-{
-	delete[] _child;
-}
-
-void Node::SizeUp()
-{
-	int newSize = _size + 5;
-	Node** newArr = new Node * [newSize];
-
-	for (int i = 0; i < _size; i++)
-	{
-		newArr[i] = _child[i];
-	}
-
-	delete[] _child;
-
-	_child = newArr;
-	_size = newSize;
+    return nullptr;
 }

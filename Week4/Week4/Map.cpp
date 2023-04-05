@@ -1,46 +1,66 @@
 #include "Map.h"
 
-Map::Map()
+TileMap::TileMap(int width, int height)
 {
-	int index = 0;
-	for (int i = 0; i < MAP_MAX_X; i++)
-	{
-		for (int j = 0; j < MAP_MAX_Y; j++)
-		{
-			map[i][j].index = index;
-			map[i][j].type = MAP_ROAD;
-			map[i][j].distance;
-			index++;
-		}
-	}
+    this->width = width;
+    this->height = height;
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            int cost;
+            cost = 1;
+
+            bool obstacle = (cost == 0);
+            addTile(x, y, cost, obstacle);
+        }
+    }
 }
 
-Map::~Map()
+void TileMap::PrintMap()
 {
+    for (int i = 0; i < tiles.size(); i++)
+    {
+        switch (tiles[i].type)
+        {
+        case START:
+            cout << "S\t";
+            break;
+        case GOAL:
+            cout << "G\t";
+            break;
+        case OBSTACLE:
+            cout << "X\t";
+            break;
+        case ROAD:
+            cout << ".\t";
+            break;
+        case ROUTE:
+            cout << "O\t";
+            break;
+        default:
+            break;
+        }
+
+        if (i % width == width - 1)
+            cout << endl << endl;
+    }
 }
 
-
-Tile Map::SearchTile(int index)
+Tile::Tile(int x, int y, int cost, bool obstacle)
 {
-	for (int i = 0; i < MAP_MAX_X; i++)
-	{
-		for (int j = 0; j < MAP_MAX_Y; j++)
-		{
-			if (index = map[i][j].index)
-				return 	map[i][j];
-		}
-	}
-}
-
-void Map::MapDrow()
-{
-	for (int i = 0; i < MAP_MAX_X; i++)
-	{
-		for (int j = 0; j < MAP_MAX_Y; j++)
-		{
-			cout << "    " << map[i][j].index;
-		}
-		cout << endl;
-		cout << endl;
-	}
+    this->x = x;
+    this->y = y;
+    this->cost = cost;
+    this->obstacle = obstacle;
+    
+    switch (cost)
+    {
+    case 0:
+        this->type = OBSTACLE;
+        break;
+    case 1:
+        this->type = ROAD;
+    default:
+        break;
+    }
 }
