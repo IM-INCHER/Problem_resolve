@@ -1,3 +1,0 @@
-﻿  cardinal_to_roman.cpp
-D:\problem_solving\Week2\cardinal_to_roman\cardinal_to_roman.cpp(72,40): warning C4101: 'e' :참조되지 않은 지역 변수입니다.
-  cardinal_to_roman.vcxproj -> D:\problem_solving\Week2\x64\Debug\cardinal_to_roman.exe
