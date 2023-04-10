@@ -8,7 +8,7 @@ TileMap::TileMap(int width, int height)
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             int cost;
-            cost = 1;
+            cin >> cost;
 
             bool obstacle = (cost == 0);
             addTile(x, y, cost, obstacle);

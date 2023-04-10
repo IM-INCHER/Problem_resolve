@@ -4,18 +4,19 @@ int main()
 {
     // 맵 정보 입력
     int width, height;
-    cout << "맵의 가로 세로를 입력해 주세요 : ";
+    cout << "맵의 가로 세로를 입력해 주세요(스페이스바로 구분합니다) : ";
     cin >> width >> height;
 
+    cout << "맵을 그려주세요(1은 길 0은 장애물입니다) : " << endl;
     TileMap tileMap(width, height);
 
     tileMap.PrintMap();
 
     // 시작점과 도착점 입력
     int startX, startY, goalX, goalY;
-    cout << "시작 좌표를 입력해 주세요 : ";
+    cout << "시작 좌표를 입력해 주세요(스페이스바로 구분합니다) : ";
     cin >> startX >> startY;
-    cout << "도착 좌표를 입력해 주세요 : ";
+    cout << "도착 좌표를 입력해 주세요(스페이스바로 구분합니다) : ";
     cin >> goalX >> goalY;
 
     int startIdx = startY * width + startX;
