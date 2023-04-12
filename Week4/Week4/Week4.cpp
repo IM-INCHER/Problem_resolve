@@ -31,15 +31,18 @@ int main()
         cout << "경로를 찾을 수 없습니다." << endl;
     }
     else {
+        //최단 경로를 저장하는 벡터 선언
         vector<Node*> path;
         Node* current = result;
         while (current != nullptr) {
+            //트리의 root에 도달할때까지 반복
             path.push_back(current);
             current = current->parent;
         }
 
         cout << "최단 거리: " << result->depth << endl;
 
+        //경로에 해당하는 타일의 상태를 변경해주는 코드
         for (int i = path.size() - 1; i >= 0; i--) {
             if (i == path.size() - 1)
                 tileMap.tiles[path[i]->tileIdx].type = START;

@@ -1,10 +1,12 @@
 #include "Map.h"
 
+//타일맵의 생성자
 TileMap::TileMap(int width, int height)
 {
     this->width = width;
     this->height = height;
 
+    //맵을 입력하는 구간
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             int cost;
@@ -16,6 +18,14 @@ TileMap::TileMap(int width, int height)
     }
 }
 
+//맵에 타일을 추가하는 함수
+void TileMap::addTile(int x, int y, int cost, bool obstacle)
+{
+    //입력받은 정보를 기준으로 벡터의 넣어줌
+    tiles.emplace_back(x, y, cost, obstacle || cost == 0);
+}
+
+//콘솔창에 맵을 그려주는 함수
 void TileMap::PrintMap()
 {
     for (int i = 0; i < tiles.size(); i++)
@@ -46,6 +56,7 @@ void TileMap::PrintMap()
     }
 }
 
+//타일의 생성자
 Tile::Tile(int x, int y, int cost, bool obstacle)
 {
     this->x = x;
