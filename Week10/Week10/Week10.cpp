@@ -1,211 +1,243 @@
-﻿#define BUFMAX 1000
-
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
 struct Box
 {
-    int i = 0;
-    int c = 0;
-    int s = 0;
+	int i = 0;
+	int c = 0;
+	int s = 0;
 
-    int iArr = 0;
-    char cArr = 0;
-    char sArr[100] = "";
+	int iArr = 0;
+	char cArr = 0;
+	char sArr[100] = "";
 };
 
-struct Node {
-    char* value;
-    Node* child = nullptr;
-    Node* sibling = nullptr;
+struct Node
+{
+	char* value;
+	Node* child = nullptr;
+	int depth = 0;
 };
 
-Node* createNode(const char* value);
-void insertChild(Node* parent, Node* child);
-void parseString(Node* node, Box* b);
-void parsingString(Node* root, char* value, Box* b);
-void destroyTree(Node* node);
+Node* CreateNode(const char* value);
+void InsertChild(Node* parent, Node* child);
+void MakeTree(Node** root, char* str);
+void CountingVariable(Node* node, Box* b);
+void ParsingString(Node* root1, Node* root2, Box* b);
+void PrintNode(Node* root);
+
+bool CompareFromEnd(const char* str1, const char* str2, int len);
+char* findCommonSuffix(const char* str1, const char* str2);
 
 int main()
 {
-    FILE* fp;
-    fopen_s(&fp, "a.txt", "r");
+	FILE* fp;
+	fopen_s(&fp, "a.txt", "r");
 
-    Box box;
+	char buffer[1000] = { 0, };
+	bool isWirte = false;
 
-    char buffer[BUFMAX] = { 0 };
+	int c;
+	int count = 0;
 
-    if (fgets(buffer, BUFMAX, fp) == nullptr)
-    {
-        printf("문장을 읽어오지 못했습니다.\n");
-        return 1;
-    }
+	for (int i = 0; ; i++)
+	{
+		c = fgetc(fp);
 
-    Node* root = nullptr;
-    Node* currentNode = nullptr;
+		if (c == EOF) break;
 
-    char* context = nullptr;
+		buffer[i] = (char)c;
+	}
 
-    char* token = strtok_s(buffer, " ", &context);
-    while (token != nullptr) {
-        Node* newNode = createNode(token);
-        if (root == nullptr) {
-            root = newNode;
-            currentNode = newNode;
-        }
-        else {
-            insertChild(currentNode, newNode);
-            currentNode = newNode;
-        }
-        token = strtok_s(nullptr, " ", &context);
-    }
+	char str1[100] = { 0, };
+	char str2[100] = { 0, };
+	char* token = NULL;
+	char* context = NULL;
 
-    parseString(root, &box);
+	token = strtok_s(buffer, "\n", &context);
+	strncpy_s(str1, token, strlen(token));
+	token = strtok_s(NULL, "\n", &context);
+	strncpy_s(str2, token, strlen(token));
 
-    //box.iArr = (int*)malloc(sizeof(int) * box.i);
-    //box.cArr = (char*)malloc(sizeof(char) * box.c);
-    //box.sArr = (char**)malloc(sizeof(char*) * box.s);
+	Node* root1 = nullptr;
+	Node* root2 = nullptr;
+	Box box;
 
-    if (fgets(buffer, BUFMAX, fp) == nullptr)
-    {
-        printf("문장을 읽어오지 못했습니다.\n");
-        return 1;
-    }
+	MakeTree(&root1, str1);
+	MakeTree(&root2, str2);
 
-    token = NULL;
-    context = NULL;
+	CountingVariable(root1, &box);
+	ParsingString(root1, root2, &box);
 
-    token = strtok_s(buffer, " ", &context);
-    while (token != nullptr) {
-        parsingString(root ,token, &box);
+	//PrintNode(root2);
 
-        token = strtok_s(nullptr, " ", &context);
-    }
-
-    printf("int(%d): %d\n", box.i, box.iArr);
-    printf("char(%d): %c\n", box.c, box.cArr);
-    printf("char*(%d): %s\n", box.s, box.sArr);
-
-    destroyTree(root);
-
-    fclose(fp);
-
-    /*free(box.iArr);
-    free(box.cArr);
-    free(box.sArr);*/
-
-    return 0;
+	printf("int(%d): %d\n", box.i, box.iArr);
+	printf("char(%d): %c\n", box.c, box.cArr);
+	printf("char*(%d): %s\n", box.s, box.sArr);
 }
 
-Node* createNode(const char* value)
+Node* CreateNode(const char* value)
 {
-    Node* newNode = new Node;
-    newNode->value = new char[strlen(value) + 1];
-    strcpy_s(newNode->value, strlen(newNode->value) + 1, value);
-    newNode->child = nullptr;
-    newNode->sibling = nullptr;
-    return newNode;
+	Node* newNode = new Node;
+	newNode->value = new char[strlen(value) + 1];
+	strcpy_s(newNode->value, strlen(newNode->value) + 1, value);
+	newNode->child = nullptr;
+	newNode->depth = 0;
+	return newNode;
 }
 
-void insertChild(Node* parent, Node* child)
+void InsertChild(Node* parent, Node* child)
 {
-    if (parent->child == nullptr) {
-        parent->child = child;
-    }
-    else {
-        /*Node* sibling = parent->child;
-        while (sibling->sibling != nullptr) {
-            sibling = sibling->sibling;
-        }
-        sibling->sibling = child;*/
-    }
+	if (parent->child == nullptr)
+	{
+		child->depth = parent->depth + 1;
+		parent->child = child;
+	}
 }
 
-void parseString(Node* node, Box* b)
+void MakeTree(Node** root, char* str)
 {
-    if (node == nullptr) {
-        return;
-    }
+	char* token = NULL;
+	char* context = NULL;
+	Node* currentNode = nullptr;
 
-    char* value = node->value;
-    if (value[0] == '%' && value[1] != '\0')
-    {
-        char specifier = value[1];
-        switch (specifier) {
-        case 's':
-            b->s++;
-            break;
-        case 'd':
-            b->i++;
-            break;
-        case 'c':
-            b->c++;
-            break;
-        default:
-            printf("Unknown specifier: %c", specifier);
-            break;
-        }
-        char str[3] = { value[0] , value[1] };
-        Node* newNode = createNode(str);
-        node->sibling = newNode;
-
-        char* str2 = value + 2;
-        newNode = createNode(str2);
-        node->sibling->child = newNode;
-    }
-
-    parseString(node->child, b);
-    //parseString(node->sibling, b);
+	token = strtok_s(str, " ", &context);
+	while (token != nullptr) {
+		Node* newNode = CreateNode(token);
+		if (*root == nullptr) {
+			*root = newNode;
+			currentNode = newNode;
+		}
+		else
+		{
+			InsertChild(currentNode, newNode);
+			currentNode = newNode;
+		}
+		token = strtok_s(nullptr, " ", &context);
+	}
 }
 
-void parsingString(Node* node, char* value, Box* b)
+void CountingVariable(Node* node, Box* b)
 {
-    if (node->child == NULL) return;
-    if (node->sibling == NULL)
-    {
-        parsingString(node->child, value, b);
-        return;
-    }
+	if (node == nullptr) {
+		return;
+	}
 
-    char* str = strstr(value, node->sibling->child->value);
-
-    if (str == NULL)
-    {
-        parsingString(node->child, value, b);
-        return;
-    }
-
-    int len = strlen(str);
-    char str2[100] = "";
-    strncat_s(str2, sizeof(str2), value, strlen(value) - len);
-
-    switch (node->sibling->value[1])
-    {
-    case 'd':
-        b->iArr = atoi(str2);
-        break;
-    case 'c':
-        b->cArr = str2[0];
-        break;
-    case 's':
-        //b->sArr = str2;
-
-        strncat_s(b->sArr, sizeof(b->sArr), str2, strlen(str2));
-        break;
-    default:
-        break;
-    }
+	char* value = node->value;
+	if (value[0] == '%' && value[1] != '\0')
+	{
+		char specifier = value[1];
+		switch (specifier) {
+		case 's':
+			b->s++;
+			break;
+		case 'd':
+			b->i++;
+			break;
+		case 'c':
+			b->c++;
+			break;
+		default:
+			printf("Unknown specifier: %c", specifier);
+			break;
+		}
+	}
+	CountingVariable(node->child, b);
 }
 
-void destroyTree(Node* node)
+void ParsingString(Node* root1, Node* root2, Box* b)
 {
-    if (node == nullptr) {
-        return;
-    }
+	if (root1 == nullptr || root2 == nullptr) return;
 
-    destroyTree(node->child);
-    destroyTree(node->sibling);
-    //delete[] node->value;
-    delete node;
+	if (strncmp(root1->value, root2->value, strlen(root1->value)) == 0)
+	{
+		ParsingString(root1->child, root2->child, b);
+	}
+	else
+	{
+		switch (root1->value[1])
+		{
+		case 'd':
+			b->iArr = atoi(findCommonSuffix(root1->value, root2->value));
+			ParsingString(root1->child, root2->child, b);
+			break;
+		case 'c':
+			b->cArr = root2->value[0];
+			ParsingString(root1->child, root2->child, b);
+			break;
+		case 's':
+			if (CompareFromEnd(root1->value, root2->value, 2))
+			{
+				strcat_s(b->sArr, sizeof(b->sArr), findCommonSuffix(root1->value, root2->value));
+				ParsingString(root1->child, root2->child, b);
+			}
+			else
+			{
+				strcat_s(b->sArr, sizeof(b->sArr), root2->value);
+				strcat_s(b->sArr, sizeof(b->sArr), " ");
+				ParsingString(root1, root2->child, b);
+			}
+			break;
+		default:
+			break;
+		}
+	}
 }
+
+void PrintNode(Node* root)
+{
+	if (root == nullptr) return;
+
+	char str[100] = { 0, };
+
+	strcpy_s(str, strlen(root->value) + 1, root->value);
+	//printf("%d", sizeof(str));
+	printf("%s\n", str);
+
+	PrintNode(root->child);
+}
+
+bool CompareFromEnd(const char* str1, const char* str2, int len)
+{
+	int len1 = strlen(str1);
+	int len2 = strlen(str2);
+	int i = len1 - 1;
+	int j = len2 - 1;
+
+	for (int k = 0; k < len; k++)
+	{
+		if (str1[i] > str2[j])
+			return false;
+		else if (str1[i] < str2[j])
+			return false;;
+
+		i--;
+		j--;
+	}
+
+	return true; // 두 문자열이 동일한 경우
+}
+
+char* findCommonSuffix(const char* str1, const char* str2)
+{
+	int len1 = strlen(str1);
+	int len2 = strlen(str2);
+	int minLen = len1 < len2 ? len1 : len2;  // 두 문자열 중 짧은 길이
+
+	const char* addr1 = str1 + len1 - 1;
+	const char* addr2 = str2 + len2 - 1;
+
+	while (addr1 >= str1 && addr2 >= str2 && *addr1 == *addr2) {
+		addr1--;
+		addr2--;
+	}
+
+	int len = strlen(addr2 + 1);
+	char str3[100] = "";
+	strncat_s(str3, sizeof(str3), str2, strlen(str2) - len);
+
+	return str3;
+}
+
+
