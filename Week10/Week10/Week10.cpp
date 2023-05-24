@@ -17,7 +17,6 @@ struct Node
 {
 	char* value;
 	Node* child = nullptr;
-	int depth = 0;
 };
 
 Node* CreateNode(const char* value);
@@ -36,11 +35,8 @@ int main()
 	fopen_s(&fp, "a.txt", "r");
 
 	char buffer[1000] = { 0, };
-	bool isWirte = false;
 
 	int c;
-	int count = 0;
-
 	for (int i = 0; ; i++)
 	{
 		c = fgetc(fp);
@@ -83,7 +79,6 @@ Node* CreateNode(const char* value)
 	newNode->value = new char[strlen(value) + 1];
 	strcpy_s(newNode->value, strlen(newNode->value) + 1, value);
 	newNode->child = nullptr;
-	newNode->depth = 0;
 	return newNode;
 }
 
@@ -91,7 +86,6 @@ void InsertChild(Node* parent, Node* child)
 {
 	if (parent->child == nullptr)
 	{
-		child->depth = parent->depth + 1;
 		parent->child = child;
 	}
 }
@@ -192,7 +186,6 @@ void PrintNode(Node* root)
 	char str[100] = { 0, };
 
 	strcpy_s(str, strlen(root->value) + 1, root->value);
-	//printf("%d", sizeof(str));
 	printf("%s\n", str);
 
 	PrintNode(root->child);
@@ -216,14 +209,14 @@ bool CompareFromEnd(const char* str1, const char* str2, int len)
 		j--;
 	}
 
-	return true; // 두 문자열이 동일한 경우
+	return true;
 }
 
 char* findCommonSuffix(const char* str1, const char* str2)
 {
 	int len1 = strlen(str1);
 	int len2 = strlen(str2);
-	int minLen = len1 < len2 ? len1 : len2;  // 두 문자열 중 짧은 길이
+	int minLen = len1 < len2 ? len1 : len2;
 
 	const char* addr1 = str1 + len1 - 1;
 	const char* addr2 = str2 + len2 - 1;
