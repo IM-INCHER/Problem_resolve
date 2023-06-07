@@ -75,7 +75,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -103,7 +103,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,21 +127,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="BgObjects.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainGame.cpp" />
+    <ClCompile Include="MainScene.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="ObstacleManager.cpp" />
+    <ClCompile Include="OverScene.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component.h" />
+    <ClInclude Include="BgObjects.h" />
+    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="MainScene.h" />
+    <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="ObstacleManager.h" />
+    <ClInclude Include="OverScene.h" />
+    <ClInclude Include="RenderManager.h" />
     <ClInclude Include="mainGame.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="singletonBase.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>

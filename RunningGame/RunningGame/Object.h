@@ -1,17 +1,16 @@
 #pragma once
-#include "Component.h"
+#include <vector>
 
 class Object
 {
 private:
-	vector<Component*> components;
+	Vector3 pos;
 
 public:
-	void AddComponent(Component* component);
-	void UpdateComponent();
-
-	virtual void Start() {}
+	virtual void Init() {}
 	virtual void Update() {}
 	virtual void Render() {}
+
+	float GetPosZ() { return pos.z; }
 };
 

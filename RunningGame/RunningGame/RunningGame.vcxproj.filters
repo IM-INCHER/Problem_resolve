@@ -16,48 +16,117 @@
     <Filter Include="PCH">
       <UniqueIdentifier>{ec7eb0c1-7565-41d6-997d-30152e366a31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Character">
+      <UniqueIdentifier>{28a38753-2569-4cb0-b330-2e3b9cf9231c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{cdbdfc93-3b1d-4e14-b7d0-d7b582aa7a05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{b7ba2703-0875-4110-9e77-7a455d0bf820}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map">
+      <UniqueIdentifier>{ee578825-7211-4e8e-aa65-721f0cfbdf2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{e8a8f933-3613-470b-9037-ced5f13637df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="mainGame.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>PCH</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="mainGame.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="BgObjects.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Character</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ObstacleManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Obstacle.cpp">
+      <Filter>Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Character</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="OverScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="mainGame.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Vector3.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>PCH</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="mainGame.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="BgObjects.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="singletonBase.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Character</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ObstacleManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacle.h">
+      <Filter>Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Character</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="OverScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

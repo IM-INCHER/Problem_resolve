@@ -3,11 +3,10 @@
 
 int main()
 {
-	system("color f0");
+	srand((unsigned int)time(NULL));
 
 	mainGame mg;
-	mg.update();
-	mg.release();
+	mg.Run();
 
 	return 0;
 }
