@@ -41,7 +41,7 @@ void GameScene::Update()
 			map.Update();
 			OM.Update();
 
-			if (score % 300 == 0)
+			if (score % 200 == 0)
 			{
 				map.SpeedUp();
 				OM.SpeedUp();

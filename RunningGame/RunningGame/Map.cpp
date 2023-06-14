@@ -3,6 +3,9 @@
 
 void Map::Init()
 {
+	for (Object* obj : bgObjs) {
+		obj->Init();
+	}
 }
 
 void Map::Update()

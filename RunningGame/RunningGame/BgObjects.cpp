@@ -8,10 +8,12 @@ Sun::Sun(float x, float y, float z, float speed)
 	pos.z = z;
 
 	this->speed = speed;
+	this->initSpeed = speed;
 }
 
 void Sun::Init()
 {
+	speed = initSpeed;
 }
 
 void Sun::Update()
@@ -64,10 +66,12 @@ Cloud::Cloud(float x, float y, float z, float speed)
 	pos.z = z;
 
 	this->speed = speed;
+	this->initSpeed = speed;
 }
 
 void Cloud::Init()
 {
+	speed = initSpeed;
 }
 
 void Cloud::Update()
@@ -97,10 +101,12 @@ Mountain::Mountain(float x, float y, float z, float speed)
 	pos.z = z;
 
 	this->speed = speed;
+	this->initSpeed = speed;
 }
 
 void Mountain::Init()
 {
+	speed = initSpeed;
 }
 
 void Mountain::Update()

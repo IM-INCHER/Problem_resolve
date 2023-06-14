@@ -4,6 +4,7 @@ class BackGround : public Object
 {
 protected:
 	float speed;
+	float initSpeed;
 
 public:
 	void SpeedUp() { speed *= 1.3f; }

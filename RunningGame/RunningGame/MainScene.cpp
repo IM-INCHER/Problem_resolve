@@ -54,31 +54,17 @@ void MainScene::Render()
 	{
 		if (isFlicker)
 		{
-			RENDERMANAGER->Print(58, 13, L'S', Color::BLACK, Color::WHITE);
-			RENDERMANAGER->Print(59, 13, L'T', Color::BLACK, Color::WHITE);
-			RENDERMANAGER->Print(60, 13, L'A', Color::BLACK, Color::WHITE);
-			RENDERMANAGER->Print(61, 13, L'R', Color::BLACK, Color::WHITE);
-			RENDERMANAGER->Print(62, 13, L'T', Color::BLACK, Color::WHITE);
+			RENDERMANAGER->Print(58, 13, "START", Color::BLACK, Color::WHITE);
 		}
-		RENDERMANAGER->Print(58, 15, L'E', Color::BLACK, Color::WHITE);
-		RENDERMANAGER->Print(59, 15, L'X', Color::BLACK, Color::WHITE);
-		RENDERMANAGER->Print(60, 15, L'I', Color::BLACK, Color::WHITE);
-		RENDERMANAGER->Print(61, 15, L'T', Color::BLACK, Color::WHITE);
+		RENDERMANAGER->Print(58, 15, "EXIT", Color::BLACK, Color::WHITE);
 	}
 	else if (select == 1)
 	{
-		RENDERMANAGER->Print(58, 13, L'S', Color::BLACK, Color::WHITE);
-		RENDERMANAGER->Print(59, 13, L'T', Color::BLACK, Color::WHITE);
-		RENDERMANAGER->Print(60, 13, L'A', Color::BLACK, Color::WHITE);
-		RENDERMANAGER->Print(61, 13, L'R', Color::BLACK, Color::WHITE);
-		RENDERMANAGER->Print(62, 13, L'T', Color::BLACK, Color::WHITE);
+		RENDERMANAGER->Print(58, 13, "START", Color::BLACK, Color::WHITE);
 
 		if (isFlicker)
 		{
-			RENDERMANAGER->Print(58, 15, L'E', Color::BLACK, Color::WHITE);
-			RENDERMANAGER->Print(59, 15, L'X', Color::BLACK, Color::WHITE);
-			RENDERMANAGER->Print(60, 15, L'I', Color::BLACK, Color::WHITE);
-			RENDERMANAGER->Print(61, 15, L'T', Color::BLACK, Color::WHITE);
+			RENDERMANAGER->Print(58, 15, "EXIT", Color::BLACK, Color::WHITE);
 		}
 	}
 
@@ -138,7 +124,9 @@ void MainScene::Render()
 	RENDERMANAGER->Print(94, 16, "RULE", Color::BLACK, Color::WHITE);
 	RENDERMANAGER->Print(83, 18, "JUMP : SPACEBAR", Color::BLACK, Color::WHITE);
 	RENDERMANAGER->Print(83, 20, "PAUSE : ESC", Color::BLACK, Color::WHITE);
-	RENDERMANAGER->Print(83, 22, "SCORE 300 : SPEED UP!", Color::BLACK, Color::WHITE);
+	RENDERMANAGER->Print(83, 22, "SCORE 200 : SPEED UP!", Color::BLACK, Color::WHITE);
+
+	RENDERMANAGER->Print(30, 5, "DALLIGI", Color::BLACK, Color::WHITE);
 }
 
 void MainScene::Release()
